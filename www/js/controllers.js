@@ -87,6 +87,22 @@ angular.module('starter.controllers', [])
       console.info(error); 
     });
   }
+
+  $scope.registrar = function(){
+    firebase.auth().createUserWithEmailAndPassword($scope.loginData.username, $scope.loginData.password)
+    .then(function(user){
+      if(user){
+        user.sendEmailVerification();
+        console.info("Ok", user);
+      }
+      else{
+        console.info("Error", user);
+      }
+    })
+    .catch(function(error){
+      console.info("Error", error);
+    })
+  }
 })
 
 .controller('PlaylistsCtrl', function($scope) {
